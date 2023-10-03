@@ -1,4 +1,4 @@
-import db from "./models/model.js";
+import db from './models/model.js';
 
 const taskController = {};
 
@@ -12,8 +12,8 @@ taskController.createTask = (req, res, next) => {
   }; // Construct the SQL query
 
   const query = `
-INSERT INTO tasks (priority, assigned_to, due_date, description)
-VALUES ($1, $2, $3, $4)
+INSERT INTO tasks (name, comment)
+VALUES ($1, $2)
 RETURNING *
 `;
   const values = [
@@ -26,11 +26,11 @@ RETURNING *
   db.query(query, values, (err, result) => {
     if (err) {
       // Handle any error that occurs during the database query
-      console.error("Error executing the database query:", err);
+      console.error('Error executing the database query:', err);
       return next(err); // Move to the express global error handler
     } // Log the result for debugging purposes
 
-    console.log("Query Result:", result.rows); // Store the created task data in res.locals for subsequent middleware to access
+    console.log('Query Result:', result.rows); // Store the created task data in res.locals for subsequent middleware to access
 
     res.locals.createdTask = result.rows[0]; // Move on to the next middleware in the route handler
 
@@ -40,16 +40,16 @@ RETURNING *
 
 taskController.getTasks = (req, res, next) => {
   // Construct the SQL query to fetch tasks from the database
-  const query = "SELECT * FROM tasks"; // Execute the query using db.query()
+  const query = 'SELECT * FROM tasks'; // Execute the query using db.query()
 
   db.query(query, (err, result) => {
     if (err) {
       // Handle any error that occurs during the database query
-      console.error("Error executing the database query:", err);
+      console.error('Error executing the database query:', err);
       return next(err); // Move to the express global error handler
     } // Log the result for debugging purposes
 
-    console.log("Query Result:", result.rows); // Store the tasks data in res.locals for subsequent middleware to access
+    console.log('Query Result:', result.rows); // Store the tasks data in res.locals for subsequent middleware to access
 
     res.locals.tasks = result.rows; // Move on to the next middleware in the route handler
 
@@ -84,11 +84,11 @@ RETURNING *
   db.query(query, values, (err, result) => {
     if (err) {
       // Handle any error that occurs during the database query
-      console.error("Error executing the database query:", err);
+      console.error('Error executing the database query:', err);
       return next(err); // Move to the express global error handler
     } // Log the result for debugging purposes
 
-    console.log("Query Result:", result.rows); // Store the updated task data in res.locals for subsequent middleware to access
+    console.log('Query Result:', result.rows); // Store the updated task data in res.locals for subsequent middleware to access
 
     res.locals.updatedTask = result.rows[0]; // Move on to the next middleware in the route handler
 
@@ -99,13 +99,13 @@ RETURNING *
 taskController.deleteTask = (req, res, next) => {
   // Delete a task from the database
   const taskId = req.params.id;
-  const query = "DELETE FROM tasks WHERE id = $1";
+  const query = 'DELETE FROM tasks WHERE id = $1';
   const values = [taskId]; // Execute the query using db.query()
 
   db.query(query, values, (err) => {
     if (err) {
       // Handle any error that occurs during the database query
-      console.error("Error executing the database query:", err);
+      console.error('Error executing the database query:', err);
       return next(err); // Move to the express global error handler
     } // Store a success message in res.locals for subsequent middleware to access
 

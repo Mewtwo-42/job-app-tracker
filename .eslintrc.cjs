@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
   env: {
-    node: true, // changed to true to remove the error pertaining to 'module'
+    browser: true,
+    es2020: true,
+    node: true 
   },
   extends: [
     'eslint:recommended',

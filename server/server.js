@@ -8,7 +8,13 @@ const app = express();
 const PORT = 3000;
 
 //import routers
-import taskRouter from "./routes/taskRouter";
+import authRouter from './routes/authRouter';
+import columnRouter from './routes/columnRouter';
+import projectRouter from './routes/projectRouter';
+import taskRouter from './routes/taskRouter';
+import teamRouter from './routes/teamRouter';
+import userRouter from './routes/userRouter';
+
 // const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
 
 app.use(express.json()); 
@@ -21,7 +27,13 @@ app.get('/', (req, res) => {
 });
 
 //Route handler
-app.use("/api/tasks", taskRouter);
+app.use('api/auth', authRouter);
+app.use('api/column', columnRouter);
+app.use('api/project', projectRouter);
+app.use('/api/task', taskRouter);
+app.use('/api/team', teamRouter);
+app.use('/api/user', userRouter);
+
 
 //Global Error Handler
 app.use((err, req, res) => {
@@ -35,8 +47,8 @@ app.use((err, req, res) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => console.log(`server is listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
 
-module.exports = app;
+export default app;
 
 
