@@ -36,5 +36,5 @@ it('clicking the button opens a pop-up window', () => {
 
   // Check that the pop-up window is now visible
   const newPopupCard = screen.getByText('Popup card'); // Replace with your popup content text or element
-  expect(newPopupWindow).toBeInTheDocument();
+  expect(newPopupCard).toBeInTheDocument();
 });

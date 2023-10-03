@@ -1,10 +1,9 @@
-import db from "./models/model.js";
+import db from './models/model.js';
 
 const authController = {};
 
 authController.createCookie = (req, res, next) => {
   try {
-
     const cookieName = 'userToken';
     const cookieValue = 'id123';
 
@@ -35,4 +34,4 @@ authController.createSession = (req, res, next) => {
   }
 };
 
-module.exports = authController;
+export default authController;
