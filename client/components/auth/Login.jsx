@@ -28,10 +28,60 @@ export const login = () => {
     }
   };
 
-  //function to handle form submission 
+  //function to handle form submission
   const handleSubmit = async (e) => {
+    //prevent the default form submission
     e.preventDefault();
 
-  }
+    try {
+      //send POST requset to login endpt with user credentials
+      //QUESTION ON WHERE TO FETCH??
+      const response = await fetch(`${URL}user/login`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ username, password }), //send username and password as
+      });
 
+      //check if response is NOT ok (ex. 401 Unauthorized)
+      if (!response.ok) {
+        throw new Error('Invalid credentials.');
+      }
+
+      //redirect user to dashboard on successful login
+      navigate('/dashboard');
+    } catch (err) {
+      //handle errors by setting error message in state
+      setError(err.message);
+    }
+  };
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='username'>Username</label>
+          <input
+            type='text'
+            id='username'
+            name='username'
+            value={username}
+            onChange={(e) => setInput('username', e)}
+          />
+        </div>
+        <div>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='text'
+            id='password'
+            name='password'
+            value={password}
+            onChange={(e) => setInput('password', e)}
+          />
+        </div>
+        <button type='submit'>Login</button>
+      </form>
+    </div>
+  );
 };
