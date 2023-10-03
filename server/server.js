@@ -1,14 +1,14 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser')
-const cors = require('cors');
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 
 const app = express();
 const PORT = 3000;
 
 //import routers
-const taskRouter = require("./routes/taskRouter");
+import taskRouter from "./routes/taskRouter";
 // const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
 
 app.use(express.json()); 

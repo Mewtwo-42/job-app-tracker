@@ -1,3 +1,5 @@
+import db from "./models/model.js";
+
 const userController = {};
 
 userController.createUser = (req, res, next) => {

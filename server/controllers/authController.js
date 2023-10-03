@@ -1,3 +1,5 @@
+import db from "./models/model.js";
+
 const authController = {};
 
 authController.createCookie = (req, res, next) => {
