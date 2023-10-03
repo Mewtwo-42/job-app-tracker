@@ -2,10 +2,10 @@ import express from 'express';
 import taskController from '../controllers/taskController';
 import authController from '../controllers/authController';
 
-const router = express.Router();
+const taskRouter = express.Router();
 
 // Create a new task (set a cookie and then create a session)
-router.post(
+taskRouter.post(
   '/',
   authController.createCookie, // Set a cookie
   authController.createSession, // Create a session for the user
@@ -16,7 +16,7 @@ router.post(
 );
 
 // Get all tasks (set a cookie and then create a session)
-router.get(
+taskRouter.get(
   '/',
   authController.createCookie, // Set a cookie
   authController.createSession, // Create a session for the user
@@ -27,7 +27,7 @@ router.get(
 );
 
 // Update a task (set a cookie and then create a session)
-router.patch(
+taskRouter.patch(
   '/:id',
   authController.createCookie, // Set a cookie
   authController.createSession, // Create a session for the user
@@ -38,7 +38,7 @@ router.patch(
 );
 
 // Delete a task (set a cookie and then create a session)
-router.delete(
+taskRouter.delete(
   '/:id',
   authController.createCookie, // Set a cookie
   authController.createSession, // Create a session for the user
@@ -48,4 +48,4 @@ router.delete(
   }
 );
 
-module.exports = router;
+export default taskRouter;
