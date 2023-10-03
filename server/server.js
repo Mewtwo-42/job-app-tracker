@@ -17,7 +17,7 @@ import userRouter from './routes/userRouter';
 
 // const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
@@ -49,6 +49,6 @@ app.use((err, req, res) => {
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
 
-export default app;
+module.exports = app;
 
 
