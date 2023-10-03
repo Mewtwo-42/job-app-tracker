@@ -1,6 +1,7 @@
-const express = require('express');
-const taskController = require('../controllers/taskController');
-const authController = require('../controllers/authController');
+import express from 'express';
+import taskController from '../controllers/taskController';
+import authController from '../controllers/authController';
+
 const router = express.Router();
 
 // Create a new task (set a cookie and then create a session)

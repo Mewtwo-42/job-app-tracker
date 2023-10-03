@@ -1,4 +1,4 @@
-const db = require("./db"); // Import the database connection
+import db from "./models/model.js";
 
 const taskController = {};
 
