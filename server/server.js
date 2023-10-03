@@ -1,17 +1,16 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser')
-const cors = require('cors');
-
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
 
 //import routers
-const taskRouter = require("./routes/taskRouter");
-// const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
+import taskRouter from './routes/taskRouter';
+// const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 //Route handler
-app.use("/api/tasks", taskRouter);
+app.use('/tasks', taskRouter);
 
 //Global Error Handler
 app.use((err, req, res) => {
@@ -38,5 +37,3 @@ app.use((err, req, res) => {
 app.listen(PORT, () => console.log(`server is listening on port ${PORT}`));
 
 module.exports = app;
-
-
