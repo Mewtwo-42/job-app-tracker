@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-export const login = () => {
+export const Login = () => {
   //initilize state variables
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,12 +36,13 @@ export const login = () => {
     try {
       //send POST requset to login endpt with user credentials
       //QUESTION ON WHERE TO FETCH??
-      const response = await fetch(`${URL}user/login`, {
+      const apiUrl = 'https://';
+      const response = await fetch(`${apiUrl}user/`, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ username, password }), //send username and password as
+        body: JSON.stringify({ username, password }), //send username and password as JSON
       });
 
       //check if response is NOT ok (ex. 401 Unauthorized)
@@ -49,11 +50,15 @@ export const login = () => {
         throw new Error('Invalid credentials.');
       }
 
+      // Clear the input fields on successful login
+      setUsername('');
+      setPassword('');
+
       //redirect user to dashboard on successful login
       navigate('/dashboard');
-    } catch (err) {
+    } catch (error) {
       //handle errors by setting error message in state
-      setError(err.message);
+      setError(error.message);
     }
   };
   return (
@@ -73,7 +78,7 @@ export const login = () => {
         <div>
           <label htmlFor='password'>Password</label>
           <input
-            type='text'
+            type='password'
             id='password'
             name='password'
             value={password}
