@@ -8,3 +8,4 @@ authRouter.post('/', authController.verifyPassword, (req, res) => {
 });
 
 export default authRouter;
+

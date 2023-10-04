@@ -24,3 +24,4 @@ projectRouter.delete('/', projectController.deleteProject, (req, res) => {
 });
 
 export default projectRouter;
+

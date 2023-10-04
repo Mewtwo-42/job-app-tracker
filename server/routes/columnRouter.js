@@ -24,3 +24,4 @@ columnRouter.delete('/', columnController.deleteColumn, (req, res) => {
 });
 
 export default columnRouter;
+

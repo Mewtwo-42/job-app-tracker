@@ -90,6 +90,7 @@ taskController.editTask = async (req, res, next) => {
 
     const editTask = `UPDATE tasks SET comment = $1 WHERE task_id = $2`;
 
+
     const editedTask = await db.query(editTask, [comment, task_id]);
 
     res.locals.editedTask = editedTask;

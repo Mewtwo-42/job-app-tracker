@@ -1,6 +1,7 @@
 import db from './models/model.js';
 import bcrypt from 'bcrypt';
 
+
 const authController = {};
 
 authController.verifyPassword = async (req, res, next) => {
