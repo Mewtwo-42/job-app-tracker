@@ -1,8 +1,9 @@
+// import db from "./models/model";
+
 const authController = {};
 
 authController.createCookie = (req, res, next) => {
   try {
-
     const cookieName = 'userToken';
     const cookieValue = 'id123';
 

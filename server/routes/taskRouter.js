@@ -1,13 +1,14 @@
 const express = require('express');
 const taskController = require('../controllers/taskController');
-const authController = require('../controllers/authController');
-const router = express.Router();
+// const authController = require('../controllers/authController');
+
+const taskRouter = express.Router();
 
 // Create a new task (set a cookie and then create a session)
-router.post(
+taskRouter.post(
   '/',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+  // authController.createCookie, // Set a cookie
+  // authController.createSession, // Create a session for the user
   taskController.createTask,
   (req, res) => {
     return res.status(200).json(res.locals.createdTask);
@@ -15,10 +16,10 @@ router.post(
 );
 
 // Get all tasks (set a cookie and then create a session)
-router.get(
+taskRouter.get(
   '/',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+  // authController.createCookie, // Set a cookie
+  // authController.createSession, // Create a session for the user
   taskController.getTasks,
   (req, res) => {
     return res.status(200).json(res.locals.tasks);
@@ -26,10 +27,10 @@ router.get(
 );
 
 // Update a task (set a cookie and then create a session)
-router.patch(
+taskRouter.patch(
   '/:id',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+  // authController.createCookie, // Set a cookie
+  // authController.createSession, // Create a session for the user
   taskController.updateTask,
   (req, res) => {
     return res.status(200).json(res.locals.updatedTask);
@@ -37,14 +38,14 @@ router.patch(
 );
 
 // Delete a task (set a cookie and then create a session)
-router.delete(
+taskRouter.delete(
   '/:id',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+  // authController.createCookie, // Set a cookie
+  // authController.createSession, // Create a session for the user
   taskController.deleteTask,
   (req, res) => {
     return res.status(200).json(res.locals.deleteResult);
   }
 );
 
-module.exports = router;
+module.exports = taskRouter;

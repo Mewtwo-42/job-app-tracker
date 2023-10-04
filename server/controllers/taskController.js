@@ -1,27 +1,20 @@
-const db = require("./db"); // Import the database connection
+const db = require("../models/model");
 
 const taskController = {};
 
 taskController.createTask = (req, res, next) => {
   // Create a new task based on request data
   const newTask = {
-    priority: req.body.priority,
-    assigned_to: req.body.assigned_to,
-    due_date: req.body.due_date,
-    description: req.body.description, // other task properties...
+    name: req.body.name,
+    comment: req.body.comment,
   }; // Construct the SQL query
 
   const query = `
-INSERT INTO tasks (priority, assigned_to, due_date, description)
-VALUES ($1, $2, $3, $4)
+INSERT INTO tasks (name, comment)
+VALUES ($1, $2)
 RETURNING *
 `;
-  const values = [
-    newTask.priority,
-    newTask.assigned_to,
-    newTask.due_date,
-    newTask.description,
-  ]; // Execute the query using db.query()
+  const values = [newTask.name, newTask.comment]; // Execute the query using db.query()
 
   db.query(query, values, (err, result) => {
     if (err) {
@@ -60,26 +53,18 @@ taskController.getTasks = (req, res, next) => {
 taskController.updateTask = (req, res, next) => {
   // Update a task based on request data
   const updatedTask = {
-    priority: req.body.priority,
-    assigned_to: req.body.assigned_to,
-    due_date: req.body.due_date,
-    description: req.body.description, // other updated task properties...
+    name: req.body.name,
+    comment: req.body.comment, // other updated task properties...
   }; // Construct the SQL query to update the task in the database
 
   const taskId = req.params.id;
   const query = `
 UPDATE tasks
-SET priority = $1, assigned_to = $2, due_date = $3, description = $4
+SET name= $1, comment = $2
 WHERE id = $5
 RETURNING *
 `;
-  const values = [
-    updatedTask.priority,
-    updatedTask.assigned_to,
-    updatedTask.due_date,
-    updatedTask.description,
-    taskId,
-  ]; // Execute the query using db.query()
+  const values = [updatedTask.name, updatedTask.comment, taskId]; // Execute the query using db.query()
 
   db.query(query, values, (err, result) => {
     if (err) {

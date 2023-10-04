@@ -1,23 +1,15 @@
 module.exports = {
   root: true,
   env: {
-    node: true, // changed to true to remove the error pertaining to 'module'
+    browser: true,
+    es2020: true,
+    node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:react-hooks/recommended'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    // Allow the use of 'var' for 'require' statements in TypeScript files
-    '@typescript-eslint/no-var-requires': 'off',
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
 };
 
