@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 
 const columnController = {};
 
@@ -8,7 +8,7 @@ columnController.createColumn = async (req, res, next) => {
 
     const newColumn = `INSERT INTO columns (name, project_id) VALUES ($1, $2)`;
 
-    const createdColumn = await db.query(newColumn, [name, project_id]);
+    const createdColumn = await pool.query(newColumn, [name, project_id]);
 
     res.locals.createdColumn = createdColumn;
   } catch (err) {
@@ -28,7 +28,7 @@ columnController.getColumn = async (req, res, next) => {
 
     const getColumns = `SELECT * FROM columns WHERE project_id=$1`;
 
-    const projectColumns = await db.query(getColumns, [project_id]);
+    const projectColumns = await pool.query(getColumns, [project_id]);
 
     res.locals.projectColumns = projectColumns;
   } catch (err) {
@@ -48,7 +48,7 @@ columnController.updateColumn = async (req, res, next) => {
 
     const updateColumn = `UPDATE columns SET name = $1 WHERE project_id = $2`;
 
-    const newColumn = await db.query(updateColumn, [name, project_id]);
+    const newColumn = await pool.query(updateColumn, [name, project_id]);
 
     res.locals.newColumn = newColumn;
   } catch (err) {
@@ -68,7 +68,7 @@ columnController.deleteColumn = async (req, res, next) => {
 
     const deleteColumn = `DELETE FROM columns WHERE name = $1 AND project_id = $2`;
 
-    const deletedColumn = await db.query(deleteColumn, [name, project_id]);
+    const deletedColumn = await pool.query(deleteColumn, [name, project_id]);
 
     res.locals.deletedColumn = deletedColumn;
   } catch (err) {

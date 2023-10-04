@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 
 const taskController = {};
 
@@ -8,7 +8,7 @@ taskController.createTask = async (req, res, next) => {
 
     const createTask = `INSERT INTO tasks (name, comment, column_id) VALUES ($1, $2, $3) RETURNING *`;
 
-    const createdTask = await db.query(createTask, [name, comment, column_id]);
+    const createdTask = await pool.query(createTask, [name, comment, column_id]);
 
     res.locals.createdTask = createdTask;
 
@@ -30,7 +30,7 @@ taskController.getTasks = async (req, res, next) => {
 
     const getTasks = `SELECT * FROM tasks WHERE column_id=$1`;
 
-    const columnTasks = await db.query(getTasks, [column_id]);
+    const columnTasks = await pool.query(getTasks, [column_id]);
 
     res.locals.columnTasks = columnTasks;
   } catch (err) {
@@ -50,7 +50,7 @@ taskController.assignTask = async (req, res, next) => {
 
     const assignTask = `UPDATE tasks SET user_id = $1 WHERE column_id = $2`;
 
-    const userTask = await db.query(assignTask, [user_id, column_id]);
+    const userTask = await pool.query(assignTask, [user_id, column_id]);
 
     res.locals.userTask = userTask;
   } catch (err) {
@@ -70,7 +70,7 @@ taskController.moveTask = async (req, res, next) => {
 
     const moveTask = `UPDATE tasks SET column_id = $1 WHERE task_id = $2`;
 
-    const movedTask = await db.query(moveTask, [column_id, task_id]);
+    const movedTask = await pool.query(moveTask, [column_id, task_id]);
 
     res.locals.movedTask = movedTask;
   } catch (err) {
@@ -91,7 +91,7 @@ taskController.editTask = async (req, res, next) => {
     const editTask = `UPDATE tasks SET comment = $1 WHERE task_id = $2`;
 
 
-    const editedTask = await db.query(editTask, [comment, task_id]);
+    const editedTask = await pool.query(editTask, [comment, task_id]);
 
     res.locals.editedTask = editedTask;
   } catch (err) {
@@ -111,7 +111,7 @@ taskController.deleteTask = async (req, res, next) => {
 
     const deleteTask = `DELETE FROM tasks WHERE task_id = $1`;
 
-    const deletedTask = await db.query(deleteTask, [task_id]);
+    const deletedTask = await pool.query(deleteTask, [task_id]);
 
     res.locals.deletedTask = deletedTask;
   } catch (err) {

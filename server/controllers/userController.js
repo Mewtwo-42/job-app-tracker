@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 import bcrypt from 'bcrypt';
 
 const userController = {};
@@ -14,7 +14,7 @@ userController.createUser = async (req, res, next) => {
 
     const newUser = `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`;
 
-    const createdUser = await db.query(newUser, [
+    const createdUser = await pool.query(newUser, [
       username,
       email,
       hashedPassword,
@@ -41,7 +41,7 @@ userController.deleteUser = async (req, res, next) => {
 
     const deleteUser = `DELETE FROM users WHERE user_id = $1`;
 
-    const deletedUser = await db.query(deleteUser, [user_id]);
+    const deletedUser = await pool.query(deleteUser, [user_id]);
 
     res.locals.deletedUser = deletedUser;
   } catch (err) {

@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 import bcrypt from 'bcrypt';
 
 
@@ -10,7 +10,7 @@ authController.verifyPassword = async (req, res, next) => {
 
     const verify = `SELECT * FROM users WHERE email=$1 AND password=$2`;
 
-    let user = await db.query(verify, [email, password]);
+    let user = await pool.query(verify, [email, password]);
 
     if (user.rows.length === 0) {
       return next({

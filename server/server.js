@@ -32,14 +32,12 @@ app.get('/api/hello', (req, res) => {
 });
 
 // Route handler
-// app.use('/api/auth', authRouter);
-// app.use('/api/column', columnRouter);
-// app.use('/api/project', projectRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/column', columnRouter);
+app.use('/api/project', projectRouter);
 app.use('/api/task', taskRouter);
-// app.use('/api/team', teamRouter);
-// app.use('/api/user', userRouter);
-
-//commented out because if we reference something that hasn't been created yet, it'll throw an error. 
+app.use('/api/team', teamRouter);
+app.use('/api/user', userRouter); 
 
 
 //Global Error Handler

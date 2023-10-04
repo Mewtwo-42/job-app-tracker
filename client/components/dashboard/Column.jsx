@@ -1,60 +1,72 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskCardSmall from './TaskCardSmall.jsx';
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { useTheme } from '@material-ui/core/styles';
 
-const Column = ({text}) => {
-  //useState for managing newly created cards
+const Column = ({ text }) => {
+  const theme = useTheme();
   const [taskCard, setTaskCard] = useState([]);
-  const [taskName, setTaskName] = useState ('');
-  //handles create button that creates our cards
+  const [taskName, setTaskName] = useState('');
 
   const handleInputChange = (event) => {
     setTaskName(event.target.value);
-  }
+  };
 
   const handleClick = async () => {
-    if(taskName.trim() !== ''){
-        //adds taskName into the array
-        setTaskCard((prevCards) => [...prevCards, taskName]);
-        setTaskName('');
+    if (taskName.trim() !== '') {
+      setTaskCard((prevCards) => [...prevCards, taskName]);
+      setTaskName('');
     }
   };
-  useEffect(()=>{
-    console.log('updating cards', taskCard[taskCard.length-1])
-  },[taskCard])
-//use a loop to create TaskCardSmall w/ all taskNames
+
+  useEffect(() => {
+    console.log('updating cards', taskCard[taskCard.length - 1]);
+  }, [taskCard]);
+
+  const textStyle = {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: theme.palette.primary.main,
+    // Add any other styles you want for the text prop
+  };
+
   return (
-    <div>
-      {text}
-      <Grid
-        container
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='stretch'
-      >
-        {/* rows that will be populating on our column */}
-        {/* text will be the element from the current index */}
-        {taskCard.map((text, index) => ( 
-          <TaskCardSmall key={index} text={text} />
+    <Box border={1} padding={2} marginBottom={2} borderColor={theme.palette.primary.main}>
+      <Box marginBottom={2} style={textStyle}>
+        {text}
+      </Box>
+      <Grid container direction='column' justifyContent='flex-start' alignItems='stretch'>
+        {taskCard.map((text, index) => (
+          <Box key={index} marginBottom={1} width="100%">
+            <TaskCardSmall text={text} />
+          </Box>
         ))}
         <div>
           <TextField
-              label="Task Name"
-              value={taskName}
-              onChange={handleInputChange}
+            label="Task Name"
+            value={taskName}
+            onChange={handleInputChange}
+            variant="outlined"
+            size="small"
+            fullWidth
+            margin="dense"
           />
-          <button
-              // className=""
-              type='button'
-              onClick={handleClick}
+        </div>
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClick}
+            size="small"
           >
-              Create
-          </button>
+            Create
+          </Button>
         </div>
       </Grid>
-    </div>
+    </Box>
   );
 };
 

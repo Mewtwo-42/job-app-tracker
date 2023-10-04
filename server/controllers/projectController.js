@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 
 const projectController = {};
 
@@ -8,7 +8,7 @@ projectController.createProject = async (req, res, next) => {
     
         const newProject = `INSERT INTO projects (name, team_id) VALUES ($1, $2)`;
     
-        const createdProject = await db.query(newProject, [name, team_id]);
+        const createdProject = await pool.query(newProject, [name, team_id]);
     
         res.locals.createdProject = createdProject;
       } catch (err) {
@@ -28,7 +28,7 @@ projectController.getProject = async (req, res, next) => {
     
         const getProjects = `SELECT * FROM projects WHERE team_id=$1`;
     
-        const teamProjects = await db.query(getProjects, [team_id]);
+        const teamProjects = await pool.query(getProjects, [team_id]);
     
         res.locals.teamProjects = teamProjects;
       } catch (err) {
@@ -48,7 +48,7 @@ projectController.updateProject = async (req, res, next) => {
     
         const updateProject = `UPDATE projects SET name = $1 WHERE team_id = $2`;
     
-        const newProject = await db.query(updateProject, [name, team_id]);
+        const newProject = await pool.query(updateProject, [name, team_id]);
     
         res.locals.newProject = newProject;
       } catch (err) {
@@ -68,7 +68,7 @@ projectController.deleteProject = async (req, res, next) => {
     
         const deleteProject = `DELETE FROM projects WHERE name = $1 AND team_id = $2`;
     
-        const deletedProject = await db.query(deleteProject, [name, team_id]);
+        const deletedProject = await pool.query(deleteProject, [name, team_id]);
     
         res.locals.deletedProject = deletedProject;
       } catch (err) {
