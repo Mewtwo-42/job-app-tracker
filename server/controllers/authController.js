@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import db from "./models/model.js";
 
 const authController = {};
 
