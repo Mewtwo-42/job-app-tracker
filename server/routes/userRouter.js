@@ -14,3 +14,4 @@ userRouter.delete('/', userController.deleteUser, (req, res) => {
 });
 
 export default userRouter;
+

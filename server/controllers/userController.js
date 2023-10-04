@@ -17,6 +17,7 @@ userController.createUser = async (req, res, next) => {
     // Store the created user object in res.locals for subsequent middleware to access
     res.locals.createdUser = createdUser;
 
+
     // Continue to the next middleware
     next();
   } catch (error) {
@@ -30,3 +31,4 @@ userController.deleteUser = async (req, res, next) => {
 };
 
 export default userController;
+
