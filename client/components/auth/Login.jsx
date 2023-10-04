@@ -36,8 +36,7 @@ export const Login = () => {
     try {
       //send POST requset to login endpt with user credentials
       //QUESTION ON WHERE TO FETCH??
-      const apiUrl = 'https://';
-      const response = await fetch(`${apiUrl}user/`, {
+      const response = await fetch(`http://localhost:5173`, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -63,7 +62,7 @@ export const Login = () => {
   };
   return (
     <div>
-      <h2>Login</h2>
+      <h2 class="font-montserrat">Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='username'>Username</label>
