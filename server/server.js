@@ -7,13 +7,6 @@ const app = express();
 const PORT = 3000;
 
 //import routers
-// import authRouter from './routes/authRouter';
-// import columnRouter from './routes/columnRouter';
-// import projectRouter from './routes/projectRouter';
-// import taskRouter from './routes/taskRouter';
-// import teamRouter from './routes/teamRouter';
-// import userRouter from './routes/userRouter';
-
 const taskRouter = require("./routes/taskRouter");
 // const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
 
@@ -39,9 +32,10 @@ app.use('/api/task', taskRouter);
 // app.use('/api/team', teamRouter);
 // app.use('/api/user', userRouter);
 
+//commented out because if we reference something that hasn't been created yet, it'll throw an error. 
+
 
 //Global Error Handler
-// Global Error Handler
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const defaultErr = {
