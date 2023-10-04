@@ -1,15 +1,14 @@
 import React from 'react';
-import TopNavBar from './TopNavBar.jsx'
-import Dashboard from './Dashboard.jsx'
+import TopNavBar from './TopNavBar.jsx';
+// import Dashboard from './Dashboard.jsx'
 
-const Container = () => {
-  return(
+export const Container = () => {
+  return (
     <>
-      <div className="container">
+      <div className='container'>
         <TopNavBar />
-        <Dashboard/> 
+        {/* <Dashboard/>  */}
       </div>
     </>
-  )
-}
-export default Container;
+  );
+};

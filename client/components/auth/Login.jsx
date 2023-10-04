@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   //initilize state variables
@@ -36,7 +36,7 @@ export const Login = () => {
     try {
       //send POST requset to login endpt with user credentials
       //QUESTION ON WHERE TO FETCH??
-      const response = await fetch(`http://localhost:5173`, {
+      const response = await fetch(`http://localhost:8000`, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -62,30 +62,37 @@ export const Login = () => {
   };
   return (
     <div>
-      <h2 class="font-montserrat">Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username</label>
-          <input
-            type='text'
-            id='username'
-            name='username'
-            value={username}
-            onChange={(e) => setInput('username', e)}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            name='password'
-            value={password}
-            onChange={(e) => setInput('password', e)}
-          />
-        </div>
-        <button type='submit'>Login</button>
-      </form>
+      {/* <div className='flex text-white items-center justify-center text-center text-1xl pl-20'> */}
+      <div>
+        <h2 className="bg-blue-500 text-white p-4">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='username'>Username</label>
+            <input
+              type='text'
+              id='username'
+              name='username'
+              value={username}
+              onChange={(e) => setInput('username', e)}
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              name='password'
+              value={password}
+              onChange={(e) => setInput('password', e)}
+            />
+          </div>
+          <button type='submit'>Login</button>
+        </form>
+        <p>
+          Not a member?{' '}
+          <Link to='http://localhost:8000/signup'>Signup now</Link>
+        </p>
+      </div>
     </div>
   );
 };
