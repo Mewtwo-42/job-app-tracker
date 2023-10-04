@@ -41,8 +41,7 @@ export const SignUp = () => {
     try {
       //send POST requset to login endpt with user credentials
       //QUESTION ON WHERE TO FETCH??
-      const apiUrl = 'https://';
-      const response = await fetch(`${apiUrl}user/signup`, {
+      const response = await fetch(`http://localhost:8000/signup`, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },

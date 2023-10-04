@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.14.12",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "esbuild": "^0.19.4",
     "express": "^4.18.2",
     "pg": "^8.11.3",
     "react": "^18.2.0",
@@ -26,11 +31,14 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.1.0",
+    "autoprefixer": "^9.8.8",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^7.0.39",
     "supertest": "^6.3.3",
     "tailwind": "^4.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "typescript": "^5.0.2",
     "vite": "^4.4.9",
     "vitest": "^0.34.6"
