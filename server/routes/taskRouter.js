@@ -34,8 +34,10 @@ taskRouter.patch(
 // Delete a task (set a cookie and then create a session)
 taskRouter.delete(
   '/:id',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+
+  // authController.createCookie, // Set a cookie
+  // authController.createSession, // Create a session for the user
+
   taskController.deleteTask,
   (req, res) => {
     return res.status(200).json(res.locals.deleteResult);
@@ -43,3 +45,4 @@ taskRouter.delete(
 );
 
 export default taskRouter;
+
