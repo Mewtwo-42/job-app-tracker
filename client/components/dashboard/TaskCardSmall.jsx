@@ -1,2 +1,11 @@
-import {useState} from 'react';
-import {userNavigate} from 'react-router-dom';
+import React from 'react';
+
+//getting passed to column
+const TaskCardSmall = ({key, text}) => {
+    //render the text
+    return (
+        <button label = {text}/>
+    )
+};
+
+export default TaskCardSmall;
