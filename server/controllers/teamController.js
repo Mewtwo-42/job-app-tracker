@@ -1,4 +1,4 @@
-import db from './models/model.js';
+import { pool } from '../models/model.js';
 
 const teamController = {};
 
@@ -8,7 +8,7 @@ teamController.createTeam = async (req, res, next) => {
 
     const newTeam = `INSERT INTO teams (name, team_id) VALUES ($1)`;
 
-    const createdTeam = await db.query(newTeam, [name]);
+    const createdTeam = await pool.query(newTeam, [name]);
 
     res.locals.createdTeam = createdTeam;
   } catch (err) {
@@ -28,7 +28,7 @@ teamController.assignUserToTeam = async (req, res, next) => {
 
     const newRoster = `INSERT INTO rosters (team_id, user_id) VALUES ($1, $2)`;
 
-    const createdRoster = await db.query(newRoster, [team_id, user_id]);
+    const createdRoster = await pool.query(newRoster, [team_id, user_id]);
 
     res.locals.createdRoster = createdRoster;
   } catch (err) {
@@ -48,7 +48,7 @@ teamController.removeUserFromTeam = async (req, res, next) => {
 
     const updateRoster = `DELETE FROM rosters WHERE team_id=$1 AND user_id=$2`;
 
-    const updatedRoster = await db.query(updateRoster, [team_id, user_id]);
+    const updatedRoster = await pool.query(updateRoster, [team_id, user_id]);
 
     res.locals.updatedRoster = updatedRoster;
   } catch (err) {
@@ -68,7 +68,7 @@ teamController.deleteTeam = async (req, res, next) => {
 
     const deleteTeam = `DELETE FROM teams WHERE team_id = $1`;
 
-    const deletedTeam = await db.query(deleteTeam, [team_id]);
+    const deletedTeam = await pool.query(deleteTeam, [team_id]);
 
     res.locals.deletedTeam = deletedTeam;
   } catch (err) {

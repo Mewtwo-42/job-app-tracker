@@ -22,22 +22,36 @@ taskRouter.get(
   }
 );
 
-// Update a task (set a cookie and then create a session)
+// Edit a task 
 taskRouter.patch(
   '/',
-  taskController.updateTask,
+  taskController.editTask,
   (req, res) => {
     return res.status(200).json(res.locals.updatedTask);
   }
 );
 
-// Delete a task (set a cookie and then create a session)
+// Assign task to a user
+taskRouter.patch(
+  '/assign',
+  taskController.assignTask,
+  (req, res) => {
+    return res.status(200).json(res.locals.updatedTask);
+  }
+);
+
+// Move task to different column
+taskRouter.patch(
+  '/move',
+  taskController.moveTask,
+  (req, res) => {
+    return res.status(200).json(res.locals.updatedTask);
+  }
+);
+
+// Delete a task 
 taskRouter.delete(
   '/:id',
-
-  // authController.createCookie, // Set a cookie
-  // authController.createSession, // Create a session for the user
-
   taskController.deleteTask,
   (req, res) => {
     return res.status(200).json(res.locals.deleteResult);
@@ -45,4 +59,6 @@ taskRouter.delete(
 );
 
 export default taskRouter;
+
+
 
