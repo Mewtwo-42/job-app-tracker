@@ -1,36 +1,30 @@
 import express from 'express';
-import taskController from '../controllers/taskController';
-import authController from '../controllers/authController';
+import taskController from '../controllers/taskController.js';
+import authController from '../controllers/authController.js';
 
 const taskRouter = express.Router();
 
-// Create a new task (set a cookie and then create a session)
+// Create a new task 
 taskRouter.post(
   '/',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
   taskController.createTask,
   (req, res) => {
     return res.status(200).json(res.locals.createdTask);
   }
 );
 
-// Get all tasks (set a cookie and then create a session)
+// Get all tasks 
 taskRouter.get(
   '/',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
   taskController.getTasks,
   (req, res) => {
-    return res.status(200).json(res.locals.tasks);
+    return res.status(200).json(res.locals.columnTasks);
   }
 );
 
 // Update a task (set a cookie and then create a session)
 taskRouter.patch(
-  '/:id',
-  authController.createCookie, // Set a cookie
-  authController.createSession, // Create a session for the user
+  '/',
   taskController.updateTask,
   (req, res) => {
     return res.status(200).json(res.locals.updatedTask);

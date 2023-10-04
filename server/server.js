@@ -8,12 +8,12 @@ const app = express();
 const PORT = 3000;
 
 //import routers
-import authRouter from './routes/authRouter';
-import columnRouter from './routes/columnRouter';
-import projectRouter from './routes/projectRouter';
-import taskRouter from './routes/taskRouter';
-import teamRouter from './routes/teamRouter';
-import userRouter from './routes/userRouter';
+import authRouter from './routes/authRouter.js';
+import columnRouter from './routes/columnRouter.js';
+import projectRouter from './routes/projectRouter.js';
+import taskRouter from './routes/taskRouter.js';
+import teamRouter from './routes/teamRouter.js';
+import userRouter from './routes/userRouter.js';
 
 // const userRouter = require("./routes/userRouter"); // will need once 'userRouter' is created 
 

@@ -2,119 +2,126 @@ import db from './models/model.js';
 
 const taskController = {};
 
-taskController.createTask = (req, res, next) => {
-  // Create a new task based on request data
-  const newTask = {
-    priority: req.body.priority,
-    assigned_to: req.body.assigned_to,
-    due_date: req.body.due_date,
-    description: req.body.description, // other task properties...
-  }; // Construct the SQL query
+taskController.createTask = async (req, res, next) => {
+  try {
+    const { name, comment, column_id } = req.body;
 
-  const query = `
-INSERT INTO tasks (name, comment)
-VALUES ($1, $2)
-RETURNING *
-`;
-  const values = [
-    newTask.priority,
-    newTask.assigned_to,
-    newTask.due_date,
-    newTask.description,
-  ]; // Execute the query using db.query()
+    const createTask = `INSERT INTO tasks (name, comment, column_id) VALUES ($1, $2, $3) RETURNING *`;
 
-  db.query(query, values, (err, result) => {
-    if (err) {
-      // Handle any error that occurs during the database query
-      console.error('Error executing the database query:', err);
-      return next(err); // Move to the express global error handler
-    } // Log the result for debugging purposes
+    const createdTask = await db.query(createTask, [name, comment, column_id]);
 
-    console.log('Query Result:', result.rows); // Store the created task data in res.locals for subsequent middleware to access
-
-    res.locals.createdTask = result.rows[0]; // Move on to the next middleware in the route handler
+    res.locals.createdTask = createdTask;
 
     next();
-  });
+  } catch (err) {
+    return next({
+      log: `taskController.createTask ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error creating task',
+      },
+    });
+  }
 };
 
-taskController.getTasks = (req, res, next) => {
-  // Construct the SQL query to fetch tasks from the database
-  const query = 'SELECT * FROM tasks'; // Execute the query using db.query()
+taskController.getTasks = async (req, res, next) => {
+  try {
+    const { column_id } = req.body;
 
-  db.query(query, (err, result) => {
-    if (err) {
-      // Handle any error that occurs during the database query
-      console.error('Error executing the database query:', err);
-      return next(err); // Move to the express global error handler
-    } // Log the result for debugging purposes
+    const getTasks = `SELECT * FROM tasks WHERE column_id=$1`;
 
-    console.log('Query Result:', result.rows); // Store the tasks data in res.locals for subsequent middleware to access
+    const columnTasks = await db.query(getTasks, [column_id]);
 
-    res.locals.tasks = result.rows; // Move on to the next middleware in the route handler
-
-    next();
-  });
+    res.locals.columnTasks = columnTasks;
+  } catch (err) {
+    return next({
+      log: `taskController.getTasks ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error retrieving tasks',
+      },
+    });
+  }
 };
 
-taskController.updateTask = (req, res, next) => {
-  // Update a task based on request data
-  const updatedTask = {
-    priority: req.body.priority,
-    assigned_to: req.body.assigned_to,
-    due_date: req.body.due_date,
-    description: req.body.description, // other updated task properties...
-  }; // Construct the SQL query to update the task in the database
+taskController.assignTask = async (req, res, next) => {
+  try {
+    const { user_id, column_id } = req.body;
 
-  const taskId = req.params.id;
-  const query = `
-UPDATE tasks
-SET priority = $1, assigned_to = $2, due_date = $3, description = $4
-WHERE id = $5
-RETURNING *
-`;
-  const values = [
-    updatedTask.priority,
-    updatedTask.assigned_to,
-    updatedTask.due_date,
-    updatedTask.description,
-    taskId,
-  ]; // Execute the query using db.query()
+    const assignTask = `UPDATE tasks SET user_id = $1 WHERE column_id = $2`;
 
-  db.query(query, values, (err, result) => {
-    if (err) {
-      // Handle any error that occurs during the database query
-      console.error('Error executing the database query:', err);
-      return next(err); // Move to the express global error handler
-    } // Log the result for debugging purposes
+    const userTask = await db.query(assignTask, [user_id, column_id]);
 
-    console.log('Query Result:', result.rows); // Store the updated task data in res.locals for subsequent middleware to access
-
-    res.locals.updatedTask = result.rows[0]; // Move on to the next middleware in the route handler
-
-    next();
-  });
+    res.locals.userTask = userTask;
+  } catch (err) {
+    return next({
+      log: `taskController.assignTask ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error assigning task',
+      },
+    });
+  }
 };
 
-taskController.deleteTask = (req, res, next) => {
-  // Delete a task from the database
-  const taskId = req.params.id;
-  const query = 'DELETE FROM tasks WHERE id = $1';
-  const values = [taskId]; // Execute the query using db.query()
+taskController.moveTask = async (req, res, next) => {
+  try {
+    const { column_id, task_id } = req.body;
 
-  db.query(query, values, (err) => {
-    if (err) {
-      // Handle any error that occurs during the database query
-      console.error('Error executing the database query:', err);
-      return next(err); // Move to the express global error handler
-    } // Store a success message in res.locals for subsequent middleware to access
+    const moveTask = `UPDATE tasks SET column_id = $1 WHERE task_id = $2`;
 
-    res.locals.deleteResult = {
-      message: `Task with ID ${taskId} deleted successfully`,
-    }; // Move on to the next middleware in the route handler
+    const movedTask = await db.query(moveTask, [column_id, task_id]);
 
-    next();
-  });
+    res.locals.movedTask = movedTask;
+  } catch (err) {
+    return next({
+      log: `taskController.moveTask ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error moving task',
+      },
+    });
+  }
 };
 
-module.exports = taskController;
+taskController.editTask = async (req, res, next) => {
+  try {
+    const { comment, task_id } = req.body;
+
+    const editTask = `UPDATE tasks SET comment = $1 WHERE task_id = $2`;
+
+    const editedTask = await db.query(editTask, [comment, task_id]);
+
+    res.locals.editedTask = editedTask;
+  } catch (err) {
+    return next({
+      log: `taskController.editTask ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error editing task',
+      },
+    });
+  }
+};
+
+taskController.deleteTask = async (req, res, next) => {
+  try {
+    const { task_id } = req.body;
+
+    const deleteTask = `DELETE FROM tasks WHERE task_id = $1`;
+
+    const deletedTask = await db.query(deleteTask, [task_id]);
+
+    res.locals.deletedTask = deletedTask;
+  } catch (err) {
+    return next({
+      log: `taskController.deleteTask ERROR: ${err}`,
+      status: 400,
+      message: {
+        err: 'Error deleting task',
+      },
+    });
+  }
+};
+
+export default taskController;
