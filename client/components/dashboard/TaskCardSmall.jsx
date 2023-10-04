@@ -17,3 +17,4 @@ const buttonStyle = {
 };
 
 export default TaskCardSmall;
+

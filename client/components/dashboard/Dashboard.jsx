@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Column from './Column.jsx';
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +19,7 @@ const Dashboard = () => {
     if (inputText.trim() !== '') {
       setColumns((prevColumns) => [...prevColumns, inputText]);
       setInputText('');
+
     }
   };
 
@@ -48,5 +50,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 
 export default Dashboard;

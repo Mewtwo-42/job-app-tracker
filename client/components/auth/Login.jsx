@@ -61,6 +61,7 @@ export const Login = () => {
     }
   };
   return (
+
     <div className="min-h-screen flex items-center justify-center bg-customBeige">
       <div className='max-w-md w-full space-y-8'>
         <h2 className="text-center text-3xl font-extrabold">Login</h2>
@@ -78,6 +79,7 @@ export const Login = () => {
           </div>
           <div>
             <label htmlFor='password' className='block text-gray-600 font-semibold'>Password</label>
+
             <input
               type='password'
               id='password'
@@ -90,6 +92,7 @@ export const Login = () => {
           <button type='submit'
           className="w-full bg-customBlue text-white py-2 px-4 rounded-md hover:bg-customDarkBlue focus:outline-none"
           >Login</button>
+
         </form>
         <p>
           Not a member?{' '}
