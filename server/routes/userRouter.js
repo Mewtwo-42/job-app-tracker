@@ -1,5 +1,5 @@
-const express = require('express');
-const userController = require('../controllers/userController');
+import express from 'express';
+import userController from '../controllers/userController';
 
 const userRouter = express.Router();
 
@@ -13,5 +13,5 @@ userRouter.delete('/', userController.deleteUser, (req, res) => {
   res.sendStatus(200);
 });
 
-module.exports = userRouter;
+export default userRouter;
 

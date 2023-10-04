@@ -1,15 +1,13 @@
-const { Pool } = require("pg");
+import { Pool } from 'pg';
 
-const PG_URI =
-  "postgres://hgmhjyup:slzpyGXDztxwbOJJlRZAhwBBQdniKax7@peanut.db.elephantsql.com/hgmhjyup";
+const PG_URI = 'postgres://hgmhjyup:slzpyGXDztxwbOJJlRZAhwBBQdniKax7@peanut.db.elephantsql.com/hgmhjyup';
 
 const pool = new Pool({
-  connectionString: PG_URI,
+    connectionString: PG_URI,
 });
 
-module.exports = {
-  query: (text, params, callback) => {
-    console.log("Executed query", text);
+export const query = (text, params, callback) => {
+    console.log('executed query', text);
     return pool.query(text, params, callback);
-  },
-};
+  };
+

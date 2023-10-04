@@ -1,4 +1,4 @@
-// import db from "./models/model";
+import db from "./models/model.js";
 
 const authController = {};
 
@@ -34,4 +34,4 @@ authController.createSession = (req, res, next) => {
   }
 };
 
-module.exports = authController;
+export default authController;
